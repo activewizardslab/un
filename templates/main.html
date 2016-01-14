@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+
+
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Header global</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Header 1</h3>
+            </div>
+            <div class="col-md-6">
+                <h3>Header 2</h3>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <a href="graph">
+                <img class="img-responsive" src="http://placehold.it/600x300">
+            </a>          
+          </div>
+          <div class="col-md-6">
+            <img class="img-responsive" src="http://placehold.it/600x300">
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Header 3</h3>
+            </div>
+            <div class="col-md-6">
+                <h3>Header 4</h3>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <img class="img-responsive" src="http://placehold.it/600x300">
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Little instruction</h5>
+                    <p>Ut in tincidunt metus. Morbi pulvinar facilisis justo, in blandit lectus cursus vitae. Etiam aliquet orci non ipsum bibendum fermentum. Fusce a turpis eget odio auctor tempus. Vestibulum luctus, libero vel.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-inline" action="/handle" method="post" name='chose'>
+                      <div class="form-group">
+
+                        
+                        <select class="form-control input-sm" id="exampleInput1">
+                          <option>Type of relation</option>
+                          <option>Item 2</option>
+                          <option>Item 3</option>
+                          <option>Item 4</option>
+                          <option>Item 5</option>
+                        </select>
+
+                      </div>
+                      <div class="form-group">
+
+                        <select class="form-control input-sm" id="exampleInput2">
+                          <option>Category</option>
+                          <option>Item 2</option>
+                          <option>Item 3</option>
+                          <option>Item 4</option>
+                          <option>Item 5</option>
+                        </select>
+
+                      </div>
+
+                      <div class="form-group">
+                        <input type="text" class="form-control input-sm" id="exampleInputName2" placeholder="Jane Doe">
+                      </div>
+
+                      <button type="submit" class="btn btn-default btn-sm">Submit</button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-hover" id="table_id" width="100%">
+                        <thead>
+                            <th>Head 1</th>
+                            <th>Head 2</th>
+                            <th>Head 3</th>
+                        </thead>
+        
+                        <tbody> 
+                            <tr>
+                                <td>Clumn 1</td>
+                                <td>Clumn 2</td>
+                                <td>Clumn 3</td>
+                            </tr>
+                            <tr>
+                                <td>Clumn 1</td>
+                                <td>Clumn 2</td>
+                                <td>Clumn 3</td>
+                            </tr>
+                            <tr>
+                                <td>Clumn 1</td>
+                                <td>Clumn 2</td>
+                                <td>Clumn 3</td>
+                            </tr>
+                            <tr>
+                                <td>Clumn 1</td>
+                                <td>Clumn 2</td>
+                                <td>Clumn 3</td>
+                            </tr>
+                            <tr>
+                                <td>Clumn 1</td>
+                                <td>Clumn 2</td>
+                                <td>Clumn 3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> -->
+    <script>
+        $(document).ready(function() {
+            $('#table_id').DataTable( {
+                "scrollY":        "100px",
+                "scrollCollapse": true,
+                "paging":         false,
+                "info":           false,
+                "searching":      false
+                
+            } );
+        } );
+    </script>
+  </body>
+</html>
