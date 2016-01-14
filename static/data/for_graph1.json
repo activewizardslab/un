@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    {"name": "Foo"},
+    {"name": "Bar"},
+    {"name": "Blaat"},
+    {"name": "Booh"},
+    {"name": "Blup"},
+    {"name": "Sheep"},
+    {"name": "Eertg"},
+    {"name": "Begt"},
+    {"name": "Boseg"},
+    {"name": "Blsge"},
+    {"name": "Sheseg"}
+  ],
+  "links": [
+    {"source": 0, "target": 6, "value": 78.41587721132805}, {"source": 0, "target": 5, "value": 42.27362809032251}, {"source": 0, "target": 10, "value": 87.78245677820411}, {"source": 0, "target": 5, "value": 21.529191640069754}, {"source": 0, "target": 8, "value": 80.40065777105241}, {"source": 0, "target": 7, "value": 9.621164066825383}, {"source": 0, "target": 9, "value": 64.80277231604325}, {"source": 0, "target": 6, "value": 22.369824640754178}, {"source": 0, "target": 3, "value": 6.8268582903582615}, {"source": 0, "target": 1, "value": 85.88312683300336}, {"source": 0, "target": 6, "value": 22.64078321410825}, {"source": 0, "target": 1, "value": 8.945163442002702}, {"source": 0, "target": 9, "value": 69.16087195819955}, {"source": 0, "target": 9, "value": 25.356349009973755}, {"source": 0, "target": 4, "value": 92.05600673995275}, {"source": 0, "target": 10, "value": 31.867379372081228}, {"source": 0, "target": 3, "value": 94.57757027433142}, {"source": 0, "target": 3, "value": 30.780486927305827}, {"source": 0, "target": 7, "value": 16.380120703416267}, {"source": 0, "target": 6, "value": 69.07356833874442}, {"source": 0, "target": 7, "value": 53.838949758942945}, {"source": 0, "target": 2, "value": 22.641428287897302}, {"source": 0, "target": 10, "value": 45.84170172801558}, {"source": 0, "target": 7, "value": 27.530855174082514}, {"source": 0, "target": 1, "value": 86.2089155936003}, {"source": 0, "target": 7, "value": 93.1555175881484}, {"source": 0, "target": 3, "value": 52.92658141271133}, {"source": 0, "target": 4, "value": 85.25279417427606}, {"source": 0, "target": 6, "value": 84.49791602636809}, {"source": 0, "target": 8, "value": 82.43576564019783}
+  ]
+}

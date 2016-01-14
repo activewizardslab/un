@@ -6,10 +6,6 @@ app = Flask(__name__)
 def index():
     return render_template('main.html')
 
-@app.route('/graph')
-def graph():
-    return render_template('graph.html')
-
 @app.route('/handle', methods=['POST'])
 def handle():
     form = request.form

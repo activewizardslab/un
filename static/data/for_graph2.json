@@ -1,0 +1,22 @@
+{
+  "nodes": [
+    {"name": "Foo"},
+    {"name": "Bar"},
+    {"name": "Spam"},
+    {"name": "Booh"},
+    {"name": "Blup"},
+    {"name": "Sheep"},
+    {"name": "Ssbtn"},
+    {"name": "Bsdfgh"},
+    {"name": "Vrhgp"},
+    {"name": "dfh"},
+    {"name": "bsdtr"},
+    {"name": "drth"},
+    {"name": "sjrsk"},
+    {"name": "ssnsm"},
+    {"name": "jsnstj"}
+  ],
+  "links": [
+    {"source": 1, "target": 13, "value": 45.266957748028815}, {"source": 0, "target": 14, "value": 95.38810515588136}, {"source": 3, "target": 4, "value": 10.345911172890766}, {"source": 1, "target": 9, "value": 7.957005441031539}, {"source": 2, "target": 5, "value": 69.59556073502124}, {"source": 3, "target": 13, "value": 8.459005169482491}, {"source": 1, "target": 5, "value": 2.4921125194362514}, {"source": 3, "target": 8, "value": 40.909440710172795}, {"source": 0, "target": 8, "value": 41.63060193970751}, {"source": 2, "target": 14, "value": 69.94804755445833}, {"source": 1, "target": 14, "value": 16.651578435239923}, {"source": 0, "target": 14, "value": 66.97066734348141}, {"source": 1, "target": 11, "value": 37.71549364325867}, {"source": 2, "target": 10, "value": 48.28584665185266}, {"source": 1, "target": 7, "value": 94.90306802394105}, {"source": 1, "target": 6, "value": 4.519131268925958}, {"source": 0, "target": 4, "value": 17.910477161044525}, {"source": 2, "target": 10, "value": 4.336128054908461}, {"source": 2, "target": 7, "value": 83.61309944988201}, {"source": 1, "target": 12, "value": 66.68198091059028}, {"source": 0, "target": 11, "value": 70.49757786061916}, {"source": 3, "target": 9, "value": 46.194732449693355}, {"source": 1, "target": 7, "value": 76.71502641262924}, {"source": 1, "target": 11, "value": 1.461063354490344}, {"source": 2, "target": 11, "value": 1.3712306105662875}, {"source": 1, "target": 10, "value": 90.25617822340183}, {"source": 2, "target": 12, "value": 53.67233588046394}, {"source": 3, "target": 8, "value": 41.73197554748287}, {"source": 3, "target": 14, "value": 83.28154632552237}, {"source": 1, "target": 8, "value": 79.02740672259391}, {"source": 0, "target": 6, "value": 83.50369607292335}, {"source": 2, "target": 5, "value": 54.000181817733164}, {"source": 0, "target": 9, "value": 56.69266164102116}, {"source": 2, "target": 10, "value": 32.688510644351176}, {"source": 0, "target": 8, "value": 73.55699108145423}, {"source": 2, "target": 13, "value": 8.66769159725238}, {"source": 0, "target": 9, "value": 31.666269362120257}, {"source": 0, "target": 12, "value": 15.495759029803668}, {"source": 2, "target": 12, "value": 70.07383788792431}, {"source": 2, "target": 5, "value": 9.697512677435348}
+    ]
+}

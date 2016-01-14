@@ -4,12 +4,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    
+    <title>Natural language processing and data visualization challenge</title>
 
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+
+    <!-- D3 and first graph -->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://rawgit.com/newrelic-forks/d3-plugins-sankey/master/sankey.js"></script>
+    <script src="https://rawgit.com/misoproject/d3.chart/master/d3.chart.min.js"></script>
+    <script src="https://rawgit.com/q-m/d3.chart.sankey/master/d3.chart.sankey.min.js"></script>
+
+    <style>
+      
+      #chart, #chart2 {
+        width: 700px;
+        height: 500px;
+        clear: both;
+      }
+      .node rect {
+        fill-opacity: .9;
+        shape-rendering: crispEdges;
+      }
+      .node text {
+        text-shadow: 0 1px 0 #fff;
+      }
+      .link {
+        fill: none;
+        stroke: #000;
+        stroke-opacity: .2;
+      }
+    
+    </style>
 
 
   </head>
@@ -32,12 +60,10 @@
 
         <div class="row">
           <div class="col-md-6">
-            <a href="graph">
-                <img class="img-responsive" src="http://placehold.it/600x300">
-            </a>          
+            <div id="chart"></div>          
           </div>
           <div class="col-md-6">
-            <img class="img-responsive" src="http://placehold.it/600x300">
+            <div id="chart2"></div>
           </div>
         </div>
 
@@ -52,7 +78,7 @@
 
         <div class="row">
           <div class="col-md-6">
-            <img class="img-responsive" src="http://placehold.it/600x300">
+            <div id="chart3"></div>
           </div>
           <div class="col-md-6">
             <div class="row">
@@ -145,8 +171,93 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> -->
+    <!-- First graph -->
+    <script>
+
+      d3.json("{{ url_for('static', filename='data/for_graph1.json') }}", function(error, json) {
+        var chart =  d3.select("#chart").append("svg").chart('Sankey.Path');
+        chart
+          .colorLinks(d3.scale.category20c())
+          .nodePadding(25);
+        chart.draw(json);
+        chart.on('link:mouseover', function(link) {
+          console.log('Clicked on ' + link);
+
+        });
+      });
+
+    </script>
+    <!-- Second graph -->
+    <script>
+
+      d3.json("{{ url_for('static', filename='data/for_graph2.json') }}", function(error, json) {
+        var chart =  d3.select("#chart2").append("svg").chart('Sankey.Path');
+        chart
+          .colorNodes(d3.scale.category10())
+          .colorLinks(d3.scale.category20c())
+          .nodePadding(25);
+        chart.draw(json);
+        chart.on('link:mouseover', function(link) {
+          console.log('Clicked on ' + link);
+
+        });
+      });
+    </script>
+    <!-- Second graph -->
+    <script>
+
+    var width = 700,
+        height = 500;
+
+    var color = d3.scale.category20();
+
+    var force = d3.layout.force()
+        .charge(-100)
+        .linkDistance(100)
+        .size([width, height]);
+
+    var svg = d3.select("#chart3").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    d3.json("{{ url_for('static', filename='data/for_graph3.json') }}", function(error, graph) {
+      if (error) throw error;
+
+      force
+          .nodes(graph.nodes)
+          .links(graph.links)
+          .start();
+
+      var link = svg.selectAll(".link")
+          .data(graph.links)
+        .enter().append("line")
+          .attr("class", "link")
+          .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+      var node = svg.selectAll(".node")
+          .data(graph.nodes)
+        .enter().append("circle")
+          .attr("class", "node")
+          .attr("r", 20)
+          .style("fill", function(d) { return color(d.group); })
+          .call(force.drag);
+
+      node.append("title")
+          .text(function(d) { return d.name; });
+
+      force.on("tick", function() {
+        link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+        node.attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+      });
+    });
+
+    </script>
+    <!-- Table -->
     <script>
         $(document).ready(function() {
             $('#table_id').DataTable( {
