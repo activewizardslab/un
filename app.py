@@ -8,7 +8,7 @@ def index():
 
 # @app.route('/graph')
 # def graph():
-#     return render_template('index2.html')
+#     return render_template('graph2.html')
 
 @app.route('/handle', methods=['POST'])
 def handle():
