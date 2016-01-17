@@ -43,6 +43,15 @@
   </head>
   <body>
     <div class="container-fluid">
+      {# {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %} #}
         <div class="row">
             <div class="col-md-12">
                 <h1>Header global</h1>
@@ -90,38 +99,23 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-inline" action="/handle" method="post" name='chose'>
-                      <div class="form-group">
-
-                        
-                        <select class="form-control input-sm" id="exampleInput1">
-                          <option>Type of relation</option>
-                          <option>Item 2</option>
-                          <option>Item 3</option>
-                          <option>Item 4</option>
-                          <option>Item 5</option>
-                        </select>
-
-                      </div>
-                      <div class="form-group">
-
-                        <select class="form-control input-sm" id="exampleInput2">
-                          <option>Category</option>
-                          <option>Item 2</option>
-                          <option>Item 3</option>
-                          <option>Item 4</option>
-                          <option>Item 5</option>
-                        </select>
-
-                      </div>
-
-                      <div class="form-group">
-                        <input type="text" class="form-control input-sm" id="exampleInputName2" placeholder="Jane Doe">
-                      </div>
-
+                    <form class="form-inline" action="/" method="POST" name='chose'>
+                      {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                          {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                              {% for error in field_errors %}
+                                  <li>{{ form[field_name].label }}: {{ error }}</li>
+                              {% endfor %}
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                      {{form.hidden_tag()}}
+                      <div class="form-group" >{{ form.relation(class="form-control input-sm") }}</div>
+                      <div class="form-group" >{{ form.category(class="form-control input-sm") }}</div>
+                      <div class="form-group" >{{ form.messages_number(class="form-control input-sm", placeholder="Number of messages", type="number", min=1) }}</div>
                       <button type="submit" class="btn btn-default btn-sm">Submit</button>
-                    </form>
-                    <br>
+                  </form>
+                  <br>
                 </div>
             </div>
 
