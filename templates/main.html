@@ -19,11 +19,7 @@
 
     <style>
       
-      #chart {
-        
-        height: 400px;
-        clear: both;
-      }
+
       .node rect {
         fill-opacity: .9;
         shape-rendering: crispEdges;
@@ -58,38 +54,58 @@
             </div>
         </div>
 
+       
         <div class="row">
-            <div class="col-md-6">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
                 <h3>Header 1</h3>
+              </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div id="chart1"></div>
+              </div>
+            </div>
+                      
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
                 <h3>Header 2</h3>
+              </div>
             </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div id="chart"></div>          
-          </div>
-          <div class="col-md-6">
-            <div id="chart2"></div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div id="chart2"></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
                 <h3>Header 3</h3>
+              </div>
             </div>
-            <div class="col-md-6">
-                <h3>Header 4</h3>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div id="chart3"></div>
+              </div>
             </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div id="chart3"></div>
           </div>
+
           <div class="col-md-6">
+             <div class="row">
+              <div class="col-md-12">
+                <h3>Header 4</h3>
+              </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <h5>Little instruction</h5>
@@ -118,46 +134,17 @@
                   <br>
                 </div>
             </div>
-
+            {% if data %}
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered table-hover" id="table_id" width="100%">
-                        <thead>
-                            <th>Head 1</th>
-                            <th>Head 2</th>
-                            <th>Head 3</th>
-                        </thead>
-        
-                        <tbody> 
-                            <tr>
-                                <td>Clumn 1</td>
-                                <td>Clumn 2</td>
-                                <td>Clumn 3</td>
-                            </tr>
-                            <tr>
-                                <td>Clumn 1</td>
-                                <td>Clumn 2</td>
-                                <td>Clumn 3</td>
-                            </tr>
-                            <tr>
-                                <td>Clumn 1</td>
-                                <td>Clumn 2</td>
-                                <td>Clumn 3</td>
-                            </tr>
-                            <tr>
-                                <td>Clumn 1</td>
-                                <td>Clumn 2</td>
-                                <td>Clumn 3</td>
-                            </tr>
-                            <tr>
-                                <td>Clumn 1</td>
-                                <td>Clumn 2</td>
-                                <td>Clumn 3</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                  <ul>
+                  {% for i in data %}
+                    <li>{{i}}</li>
+                  {% endfor %}
+                  </ul>
                 </div>
             </div>
+            {% endif %}
           </div>
         </div>
     </div>
@@ -168,25 +155,142 @@
     <!-- First graph -->
     <script>
 
-    d3.json("{{ url_for('static', filename='data/for_graph1.json') }}", function(error, json) {
-
-        function render () {
-          var chart =  d3.select("#chart").append("svg").chart('Sankey.Path');
-          chart
-            .nodePadding(20)
-            .colorLinks(d3.scale.category20c());
-          chart.draw(json);
-          chart.on('link:mouseover', function(link) {
-            console.log('Clicked on ' + link);
-            });
+var margin = {top: 1, right: 1, bottom: 6, left: 1},
+          width = 700 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
+       
+      var formatNumber = d3.format(",.0f"),
+          format = function(d) { return formatNumber(d) ; },
+          color = d3.scale.category20();
+       
+      var svg1 = d3.select("#chart1").append("div")
+              .classed("svg-container", true)
+              .append("svg")
+              .attr("preserveAspectRatio", "xMinYMin meet")
+              .attr("viewBox", "0 0 700 400")
+              .classed("svg-content-responsive", true)
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+       
+      var sankey1 = d3.sankey()
+          .nodeWidth(10)
+          .nodePadding(5)
+          .size([width, height]);
+       
+      var path1 = sankey1.link();
+       
+      d3.json("{{ url_for('static', filename='data/file.json') }}", function(energy) {
+       
+        sankey1
+            .nodes(energy.nodes)
+            .links(energy.links)
+            .layout(32);
+       
+        var link = svg1.append("g").selectAll(".link")
+            .data(energy.links)
+          .enter().append("path")
+            .attr("class", "link")
+            .attr("d", path1)
+            .attr("id", function(d,i){
+              d.id = i;
+              return "link_f-"+i;
+            })
+            .on('mouseover', function() { 
+                d3.select("#chart1").selectAll(".link").style("stroke-opacity", 0.1); 
+                d3.select("#chart1").select("#"+this.id).style("stroke-opacity", 0.6) })
+            .on('mouseout', function() { 
+                d3.select("#chart1").selectAll(".link").style("stroke-opacity", 0.2);
+                d3.select("#chart1").select("#"+this.id).style("stroke-opacity", 0.2) })
+            .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+            .sort(function(a, b) { return b.dy - a.dy; })
+            .style("stroke", function(d) { return color(d.color); });
+       
+        link.append("title")
+            .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + format(d.value); });
+       
+        var node1 = svg1.append("g").selectAll(".node")
+            .data(energy.nodes)
+          .enter().append("g")
+            .attr("class", "node")
+            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+            // .on("click", highlight_node_links)
+            .on('mouseover', highlight_node_links1)
+            .on('mouseout', highlight_node_links1)
+          .call(d3.behavior.drag()
+            .origin(function(d) { return d; })
+            .on("dragstart", function() { this.parentNode.appendChild(this); })
+            .on("drag", dragmove));
+       
+        node1.append("rect")
+            .attr("height", function(d) { return d.dy; })
+            .attr("width", sankey1.nodeWidth())
+            .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
+            .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
+          .append("title")
+            .text(function(d) { return d.name + "\n" + format(d.value); });
+       
+        node1.append("text")
+            .attr("x", -6)
+            .attr("y", function(d) { return d.dy / 2; })
+            .attr("dy", ".35em")
+            .attr("text-anchor", "end")
+            .attr("transform", null)
+            .attr("font-size", 10)
+            .text(function(d) { return d.name; })
+          .filter(function(d) { return d.x < width / 2; })
+            .attr("x", 6 + sankey1.nodeWidth())
+            .attr("text-anchor", "start");
+       
+        function dragmove(d) {
+          d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
+          sankey1.relayout();
+          link.attr("d", path1);
         }
 
-        render();
+        function highlight_node_links1(node1,i){
 
-        d3.select(window).on("resize", function() {
-          d3.select("svg").remove();
-          render();
-          })
+          var remainingNodes1=[],
+              nextNodes1=[];
+
+          var stroke_opacity = 0;
+          if( d3.select(this).attr("data-clicked") == "1" ){
+            d3.select(this).attr("data-clicked","0");
+            stroke_opacity = 0.2;
+          }else{
+            d3.select(this).attr("data-clicked","1");
+            stroke_opacity = 0.6;
+          }
+
+          var traverse = [{
+                            linkType : "sourceLinks",
+                            nodeType : "target"
+                          },{
+                            linkType : "targetLinks",
+                            nodeType : "source"
+                          }];
+
+          traverse.forEach(function(step){
+            node1[step.linkType].forEach(function(link) {
+              remainingNodes1.push(link[step.nodeType]);
+              highlight_link1(link.id, stroke_opacity);
+            });
+
+            while (remainingNodes1.length) {
+              nextNodes1 = [];
+              remainingNodes1.forEach(function(node1) {
+                node1[step.linkType].forEach(function(link) {
+                  nextNodes1.push(link[step.nodeType]);
+                  highlight_link1(link.id, stroke_opacity);
+                });
+              });
+              remainingNodes1 = nextNodes1;
+            }
+          });
+        }
+
+        function highlight_link1(id,opacity){
+            d3.select("#link_f-"+id).style("stroke-opacity", opacity);
+        }
 
       });
 
@@ -200,7 +304,7 @@
           height = 400 - margin.top - margin.bottom;
        
       var formatNumber = d3.format(",.0f"),
-          format = function(d) { return formatNumber(d) + " TWh"; },
+          format = function(d) { return formatNumber(d) ; },
           color = d3.scale.category20();
        
       var svg2 = d3.select("#chart2").append("div")
@@ -214,12 +318,12 @@
        
       var sankey = d3.sankey()
           .nodeWidth(15)
-          .nodePadding(20)
+          .nodePadding(10)
           .size([width, height]);
        
       var path = sankey.link();
        
-      d3.json("{{ url_for('static', filename='data/for_graph2.json') }}", function(energy) {
+      d3.json("{{ url_for('static', filename='data/file2.json') }}", function(energy) {
        
         sankey
             .nodes(energy.nodes)
@@ -235,6 +339,12 @@
               d.id = i;
               return "link-"+i;
             })
+            .on('mouseover', function() { 
+                d3.select("#chart2").selectAll(".link").style("stroke-opacity", 0.1); 
+                d3.select("#chart2").select("#"+this.id).style("stroke-opacity", 0.6) })
+            .on('mouseout', function() { 
+                d3.select("#chart2").selectAll(".link").style("stroke-opacity", 0.2);
+                d3.select("#chart2").select("#"+this.id).style("stroke-opacity", 0.2) })
             .style("stroke-width", function(d) { return Math.max(1, d.dy); })
             .sort(function(a, b) { return b.dy - a.dy; })
             .style("stroke", function(d) { return color(d.color); });
@@ -247,7 +357,9 @@
           .enter().append("g")
             .attr("class", "node")
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-            .on("click",highlight_node_links)
+            // .on("click", highlight_node_links)
+            .on('mouseover', highlight_node_links)
+            .on('mouseout', highlight_node_links)
           .call(d3.behavior.drag()
             .origin(function(d) { return d; })
             .on("dragstart", function() { this.parentNode.appendChild(this); })
@@ -267,6 +379,7 @@
             .attr("dy", ".35em")
             .attr("text-anchor", "end")
             .attr("transform", null)
+            .attr("font-size", 10)
             .text(function(d) { return d.name; })
           .filter(function(d) { return d.x < width / 2; })
             .attr("x", 6 + sankey.nodeWidth())
@@ -289,7 +402,7 @@
             stroke_opacity = 0.2;
           }else{
             d3.select(this).attr("data-clicked","1");
-            stroke_opacity = 0.5;
+            stroke_opacity = 0.6;
           }
 
           var traverse = [{
@@ -468,18 +581,18 @@ d3.json("{{ url_for('static', filename='data/for_graph3_v2.json') }}", function(
 });
 
     </script>
-    <!-- Table -->
-    <script>
-        $(document).ready(function() {
-            $('#table_id').DataTable( {
-                "scrollY":        "100px",
-                "scrollCollapse": true,
-                "paging":         false,
-                "info":           false,
-                "searching":      false
-                
-            } );
-        } );
-    </script>
-  </body>
+<!--     Table
+  <script>
+      $(document).ready(function() {
+          $('#table_id').DataTable( {
+              "scrollY":        "100px",
+              "scrollCollapse": true,
+              "paging":         false,
+              "info":           false,
+              "searching":      false
+              
+          } );
+      } );
+  </script> -->  
+ </body>
 </html>
