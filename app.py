@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import Flask, render_template, url_for, request, redirect, flash, jsonify
 from flask_wtf import Form
 from wtforms import SelectField, IntegerField
 from wtforms.validators import input_required, none_of
 import pandas as pd
+from collections import Counter
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -24,22 +25,22 @@ class ChooseForm(Form):
     category = SelectField(
         coerce=int,
         choices=[(0, 'Category'),
-                 (1, u'no poverty'),
-                 (2, u'zero hunger'),
-                 (3, u'good health and well beeing'),
-                 (4, u'quality education'),
-                 (5, u'gender equality'),
-                 (6, u'clean water and sanitation'),
-                 (7, u'affordable and clean energy'),
-                 (8, u'decent work and economic growth'),
-                 (9, u'industry innowation and infrastructure'),
-                 (10, u'reduced inequalities'),
-                 (11, u'responsible consumption and production'),
-                 (12, u'climate action'),
-                 (13, u'life below water'),
-                 (14, u'life on land'),
-                 (15, u'piece justice and strong institutions'),
-                 (16, u'partnership for the goals')],
+                 (1, u'No poverty'),
+                 (2, u'Zero hunger'),
+                 (3, u'Good health and well beeing'),
+                 (4, u'Quality education'),
+                 (5, u'Gender equality'),
+                 (6, u'Clean water and sanitation'),
+                 (7, u'Affordable and clean energy'),
+                 (8, u'Decent work and economic growth'),
+                 (9, u'Industry innowation and infrastructure'),
+                 (10, u'Reduced inequalities'),
+                 (12, u'Responsible consumption and production'),
+                 (13, u'Climate action'),
+                 (14, u'Life below water'),
+                 (15, u'Life on land'),
+                 (16, u'Piece justice and strong institutions'),
+                 (17, u'Partnership for the goals')],
         default=0,
         validators=[
             input_required(message="Please, choose category"),
@@ -48,6 +49,32 @@ class ChooseForm(Form):
     messages_number = IntegerField('Limit',
         validators=[
             input_required(message="Please, choose number of messages")])
+
+class CloudForm(Form):
+    cloud_category = SelectField(
+        coerce=int,
+        choices=[(0, 'Category'),
+                 (1, u'No poverty'),
+                 (2, u'Zero hunger'),
+                 (3, u'Good health and well beeing'),
+                 (4, u'Quality education'),
+                 (5, u'Gender equality'),
+                 (6, u'Clean water and sanitation'),
+                 (7, u'Affordable and clean energy'),
+                 (8, u'Decent work and economic growth'),
+                 (9, u'Industry innowation and infrastructure'),
+                 (10, u'Reduced inequalities'),
+                 (12, u'Responsible consumption and production'),
+                 (13, u'Climate action'),
+                 (14, u'Life below water'),
+                 (15, u'Life on land'),
+                 (16, u'Piece justice and strong institutions'),
+                 (17, u'Partnership for the goals')],
+        default=0,
+        validators=[
+            input_required(message="Please, choose category"),
+            none_of([0], message="Please, choose category")
+            ])
 
 def unique(s):
     
@@ -83,17 +110,37 @@ def unique(s):
         if x not in u:
             u.append(x)
     return u
+mergeData_general = pd.read_csv('static/data/mergeData_general.csv')
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    form = ChooseForm()
-    if request.method == 'POST' and form.validate():
+    form1 = ChooseForm()
+    form2 = CloudForm()
+    category = 1
 
+    mergeData_temp1 = mergeData_general[mergeData_general['SDG{}Word'.format(category)] != '-0']
+    mergeData_temp2 = mergeData_temp1['text']
+    result = unique(mergeData_temp2.values)
+
+
+    text1 = ' '.join(list(mergeData_temp1['SDG11Word'].values))
+    text2 = ' '.join(list(mergeData_temp1['SDG{}Word'.format(category)].values))
+
+    cloud1 = Counter(mergeData_temp1['SDG11Word'].values).items()
+    cloud2 = Counter(mergeData_temp1['SDG{}Word'.format(category)].values).items()
+
+    return render_template('main.html', form1=form1, form2=form2, cloud=[cloud1,cloud2])
+
+
+@app.route('/one', methods=['POST'])
+def one():
+    form = ChooseForm(request.form)
+    if form.validate():
         category = form.data['category']
+        print "One: {0}".format(category)
         relationship = form.data['relation']
         limit = form.data['messages_number']
 
-        mergeData_general = pd.read_csv('../../work/un-linkssds/data/mergeData_general.csv')
         mergeData_temp = mergeData_general[mergeData_general['SDG{}Word'.format(category)] != '-0']
 
         if relationship == 1:
@@ -107,8 +154,30 @@ def index():
         mergeData_temp2 = mergeData_temp1['text']
 
         result = unique(mergeData_temp2.values)[:int(limit)]
-        return render_template('main.html', form=form, data = result, choise = [category,relationship,limit])
-    return render_template('main.html', form=form)
+        #return render_template('main.html', form1=form1, form2=form2, data = result)
+        return jsonify(data=result)
+    else:
+        return jsonify(error=form.errors)
+
+@app.route('/two', methods=['POST'])
+def two():
+    form = CloudForm(request.form)
+    if form.validate():
+        category = form.data['cloud_category']
+        print "Two: {0}".format(category)
+
+        mergeData_temp1 = mergeData_general[mergeData_general['SDG{}Word'.format(category)] != '-0']
+        mergeData_temp2 = mergeData_temp1['text']
+        result = unique(mergeData_temp2.values)
+
+
+        text1 = ' '.join(list(mergeData_temp1['SDG11Word'].values))
+        text2 = ' '.join(list(mergeData_temp1['SDG{}Word'.format(category)].values))
+
+        return jsonify(data=[text1,text2])
+    else:
+        return jsonify(error=form.errors)
+
 
 @app.route('/graph')
 def graph():

@@ -16,6 +16,7 @@
     <script src="https://rawgit.com/newrelic-forks/d3-plugins-sankey/master/sankey.js"></script>
     <script src="https://rawgit.com/misoproject/d3.chart/master/d3.chart.min.js"></script>
     <script src="https://rawgit.com/q-m/d3.chart.sankey/master/d3.chart.sankey.min.js"></script>
+    <script src="{{ url_for('static', filename='js/wordcloud.js') }}"></script>
 
     <style>
       
@@ -38,7 +39,7 @@
 
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container">
       {# {% with messages = get_flashed_messages() %}
         {% if messages %}
           <ul class=flashes>
@@ -50,22 +51,53 @@
       {% endwith %} #}
         <div class="row">
             <div class="col-md-12">
-                <h1>Header global</h1>
+                <h1 class="text-center">Links between Urban Development and the other United Nations Sustainable Development Goals</h1>
             </div>
         </div>
 
-       
         <div class="row">
+          <div class="col-md-12">
+            <div id="#tabs">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Links distribution between SDG11 and the others regarding to reports</a></li>
+              <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Links distribution between SDG11 and the others regarding to 4 types of relationships</a></li>
+            </ul>
+            <br/>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="home">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div id="chart2"></div>
+                  </div>
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="profile">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div id="chart1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          </div>
+        </div>
+       
+        <!-- <div class="row">
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
                 <h3>Header 1</h3>
               </div>
             </div>
-
+        
             <div class="row">
               <div class="col-md-12">
-                <div id="chart1"></div>
+                
               </div>
             </div>
                       
@@ -83,27 +115,88 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="row">
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
-                <h3>Header 3</h3>
+                <h3>Percentage of relationships for each link  between  Urban Development and the others</h3>
               </div>
             </div>
             
             <div class="row">
               <div class="col-md-12">
-                <div id="chart3"></div>
+                <img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Accuracy2.jpg') }}" alt="bar chart">
               </div>
             </div>
           </div>
 
           <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Percent  of  links for each related Category and  Urban Development</h3>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Pie.jpg') }}" alt="bar chart">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12"><h3>Wordcloud with keywords for linkages between SDGs</h3></div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Sustainable cities and communities</h4>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div id="cloud1"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Filter (categories)</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                  <form class="form-inline" action="javascript:void(null);" method="POST" name='chose2' id="form2" onsubmit="call2()">
+                  <!-- <form class="form-inline" action="/" method="POST" name='chose2' id="form2"> -->
+                     <div class="alert alert-danger" role="alert" id="error2">
+                      </div>
+                      {{form2.hidden_tag()}}
+                      <div class="row">
+                            <div class="col-md-4"><div class="form-group input-group" >{{ form2.cloud_category(class="form-control input-sm") }}</div></div>
+                            <div class="col-md-1"><div class="form-group input-group" ><button  name="submit2" class="btn btn-default btn-sm">Submit</button></div></div>
+                        </div>
+                  </form>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div id="cloud2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
              <div class="row">
               <div class="col-md-12">
-                <h3>Header 4</h3>
+                <h3>Header 6</h3>
               </div>
             </div>
             <div class="row">
@@ -115,49 +208,127 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-inline" action="/" method="POST" name='chose'>
-                      {% if form.errors %}
-                        <div class="alert alert-danger" role="alert">
-                          {% for field_name, field_errors in form.errors|dictsort if field_errors %}
-                              {% for error in field_errors %}
-                                  <li>{{ form[field_name].label }}: {{ error }}</li>
-                              {% endfor %}
-                          {% endfor %}
+                  <form class="form-inline" action="javascript:void(null);" method="POST" name='chose' id="form1" onsubmit="call1()">
+                    <!-- <form class="form-inline" action="/" method="POST" name='chose1'> -->
+
+                        <div class="alert alert-danger" role="alert" id="error1">
                         </div>
-                      {% endif %}
-                      {{form.hidden_tag()}}
-                      <div class="form-group" >{{ form.relation(class="form-control input-sm") }}</div>
-                      <div class="form-group" >{{ form.category(class="form-control input-sm") }}</div>
-                      <div class="form-group" >{{ form.messages_number(class="form-control input-sm", placeholder="Number of messages", type="number", min=1) }}</div>
-                      <button type="submit" class="btn btn-default btn-sm">Submit</button>
+
+                      {{form1.hidden_tag()}}
+                      <div class="row">
+                            <div class="col-md-4"><div class="form-group input-group" >{{ form1.relation(class="form-control input-sm") }}</div></div>
+                            <div class="col-md-4"><div class="form-group input-group" >{{ form1.category(class="form-control input-sm") }}</div></div>
+                            <div class="col-md-3"><div class="form-group input-group" >{{ form1.messages_number(class="form-control input-sm", placeholder="Limit", type="number", min=1) }}</div></div>
+                            <div class="col-md-1"><div class="form-group input-group" ><button type="submit" name="submit1" class="btn btn-default btn-sm">Submit</button></div></div>
+                        </div>
                   </form>
                   <br>
                 </div>
             </div>
-            {% if data %}
+
             <div class="row">
                 <div class="col-md-12">
-                  <ul>
-                  {% for i in data %}
-                    <li>{{i}}</li>
-                  {% endfor %}
+                  <ul id="response1">
                   </ul>
                 </div>
             </div>
-            {% endif %}
+
           </div>
         </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!--<script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>-->
+
+    <!-- First cloud -->
+    <script>
+    var data = {{cloud | tojson|safe }};
+    var fill = d3.scale.category20();
+    var layout = d3.layout.cloud()
+        .size([600, 600])
+        .words(data[0].map(function(d) {
+          return {text: d[0], size: d[1], test: "haha"};
+        }))
+        .padding(5)
+        .rotate(0)
+        .font("Impact")
+        .fontSize(function(d) { return d.size; })
+        .on("end", draw);
+
+    layout.start();
+
+    function draw(words) {
+      d3.select("#cloud1").append("div")
+              .classed("svg-container", true)
+              .append("svg")
+              .attr("preserveAspectRatio", "xMinYMin meet")
+              .attr("viewBox", "0 0 600 600")
+              .classed("svg-content-responsive", true)
+        .append("g")
+          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+        .selectAll("text")
+          .data(words)
+        .enter().append("text")
+          .style("font-size", function(d) { return d.size + "px"; })
+          .style("font-family", "Impact")
+          .style("fill", function(d, i) { return fill(i); })
+          .attr("text-anchor", "middle")
+          .attr("transform", function(d) {
+            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+          })
+          .text(function(d) { return d.text; });
+    }
+    </script>
+
+    <!-- Second cloud -->
+    <script>
+    var fill2 = d3.scale.category20();
+
+    var layout2 = d3.layout.cloud()
+        .size([600, 600])
+        .words(data[1].map(function(d) {
+          return {text: d[0], size: 10+d[1]*Math.random(), test: "haha"};
+        }))
+        .padding(5)
+        .rotate(0)
+        .font("Impact")
+        .fontSize(function(d) { return d.size; })
+        .on("end", draw2);
+
+    layout2.start();
+
+    function draw2(words) {
+      d3.select("#cloud2").append("div")
+              .classed("svg-container", true)
+              .append("svg")
+              .attr("preserveAspectRatio", "xMinYMin meet")
+              .attr("viewBox", "0 0 600 600")
+              .classed("svg-content-responsive", true)
+        .append("g")
+          .attr("transform", "translate(" + layout2.size()[0] / 2 + "," + layout2.size()[1] / 2 + ")")
+        .selectAll("text")
+          .data(words)
+        .enter().append("text")
+          .style("font-size", function(d) { return d.size + "px"; })
+          .style("font-family", "Impact")
+          .style("fill", function(d, i) { return fill(i); })
+          .attr("text-anchor", "middle")
+          .attr("transform", function(d) {
+            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+          })
+          .text(function(d) { return d.text; });
+    }
+    </script>
+
     <!-- First graph -->
     <script>
-
-var margin = {top: 1, right: 1, bottom: 6, left: 1},
-          width = 700 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
+      var margin = {top: 1, right: 1, bottom: 6, left: 1},
+          width = 1300- margin.left - margin.right,
+          height = 960 - margin.top - margin.bottom;
        
       var formatNumber = d3.format(",.0f"),
           format = function(d) { return formatNumber(d) ; },
@@ -167,7 +338,7 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1},
               .classed("svg-container", true)
               .append("svg")
               .attr("preserveAspectRatio", "xMinYMin meet")
-              .attr("viewBox", "0 0 700 400")
+              .attr("viewBox", "0 0 1300 960")
               .classed("svg-content-responsive", true)
         .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -300,8 +471,8 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1},
     <script>
 
      var margin = {top: 1, right: 1, bottom: 6, left: 1},
-          width = 700 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
+          width = 1300 - margin.left - margin.right,
+          height = 760 - margin.top - margin.bottom;
        
       var formatNumber = d3.format(",.0f"),
           format = function(d) { return formatNumber(d) ; },
@@ -311,7 +482,7 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1},
               .classed("svg-container", true)
               .append("svg")
               .attr("preserveAspectRatio", "xMinYMin meet")
-              .attr("viewBox", "0 0 700 400")
+              .attr("viewBox", "0 0 1300 760")
               .classed("svg-content-responsive", true)
         .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -379,7 +550,7 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1},
             .attr("dy", ".35em")
             .attr("text-anchor", "end")
             .attr("transform", null)
-            .attr("font-size", 10)
+            .attr("font-size", 16)
             .text(function(d) { return d.name; })
           .filter(function(d) { return d.x < width / 2; })
             .attr("x", 6 + sankey.nodeWidth())
@@ -438,161 +609,80 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1},
 
       });
     </script>
-    <!-- Third graph -->
-    <script>
-
-
-    var w = 900;
-    var h = 600;
-    var linkDistance=150;
-
-    var colors = d3.scale.category10();
-
- 
-    var svg3 = d3.select("#chart3").append("div")
-    .classed("svg-container", true)
-    .append("svg")
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 900 600")
-     //class to make it responsive
-    .classed("svg-content-responsive", true);
-
-d3.json("{{ url_for('static', filename='data/for_graph3_v2.json') }}", function(error, dataset) {
-  if (error) throw error;
-
-    var force = d3.layout.force()
-        .nodes(dataset.nodes)
-        .links(dataset.edges)
-        .size([w,h])
-        .linkDistance([linkDistance])
-        .charge([-500])
-        .theta(0.1)
-        .gravity(0.05)
-        .start();
-
- 
-
-    var edges = svg3.selectAll("line")
-      .data(dataset.edges)
-      .enter()
-      .append("line")
-      .attr("id",function(d,i) {return 'edge'+i})
-      .attr("class", "link")
-      .style("stroke","#ccc")
-      .style("stroke-opacity","1")
-      .attr("stroke-width","1")
-      .style("pointer-events", "none");
     
-    var nodes = svg3.selectAll("circle")
-      .data(dataset.nodes)
-      .enter()
-      .append("circle")
-      .attr({"r":30})
-      .style("fill",function(d,i){return colors(i);})
-      .call(force.drag)
-
-
-    var nodelabels = svg3.selectAll(".nodelabel") 
-       .data(dataset.nodes)
-       .enter()
-       .append("text")
-       .attr("text-anchor", "middle")
-       .attr("dy", ".35em")
-       .text(function(d){return d.name;});
-
-    var edgepaths = svg3.selectAll(".edgepath")
-        .data(dataset.edges)
-        .enter()
-        .append('path')
-        .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
-               'class':'edgepath',
-               'fill-opacity':0,
-               'stroke-opacity':0,
-               'fill':'blue',
-               'stroke':'red',
-               'id':function(d,i) {return 'edgepath'+i}})
-        .style("pointer-events", "none");
-
-    var edgelabels = svg3.selectAll(".edgelabel")
-        .data(dataset.edges)
-        .enter()
-        .append('text')
-        .style("pointer-events", "none")
-        .attr({'class':'edgelabel',
-               'id':function(d,i){return 'edgelabel'+i},
-               'dx':50,
-               'dy':0,
-               'font-size':12,
-               'fill':'#aaa'});
-
-    edgelabels.append('textPath')
-        .attr('xlink:href',function(d,i) {return '#edgepath'+i})
-        .style("pointer-events", "none")
-        .text(function(d,i){return d.label});
-
-
-    svg3.append('defs').append('marker')
-        .attr({'id':'arrowhead',
-               'viewBox':'-0 -5 10 10',
-               'refX':25,
-               'refY':0,
-               //'markerUnits':'strokeWidth',
-               'orient':'auto',
-               'markerWidth':10,
-               'markerHeight':10,
-               'xoverflow':'visible'})
-        .append('svg:path')
-            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#ccc')
-            .attr('stroke','#ccc');
+    <!-- Tab -->
+    <script>
+      $('#tabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+    </script>
+    <!-- Ajax -->
+    <script>
+    // $('#results').hide();
+    var err = $('#error1'),
+        err2 = $('#error2');
+    err.hide();
+    err2.hide();
+    function call1() {
+      var msg1   = $('#form1').serialize();
+        $.ajax({
+          type: 'POST',
+          url: '/one',
+          data: msg1,
+          success: function(data) {
+            console.log(data);
+            var ul = $('#response1');
+            ul.empty();
+            err.hide();
+            err.empty();
+            if (data['data']) {
+              for(var key in data['data']) {
+                ul.append('<li>'+data['data'][key]+'</li>');
+              }
+            } else {
+              err.show();
+              for(var error in data['error']) {
+                err.append('<li>'+data['error'][error]+'</li>');
+              }
+            }
+            
+          },
+          error:  function(xhr, str){
+                alert('Error: ' + xhr.responseCode);
+            }
+        });
      
+    }
+    
+    function call2() {
+      var msg2   = $('#form2').serialize();
+        $.ajax({
+          type: 'POST',
+          url: '/two',
+          data: msg2,
+          success: function(data) {
+            console.log(data);
+            err2.hide();
+            err2.empty();
 
-    force.on("tick", function(){
+            if (data['data']) {
+              
+            } else {
+              err2.show();
+              for(var error in data['error']) {
+                err2.append('<li>'+data['error'][error]+'</li>');
+              }
+            }
 
-        edges.attr({"x1": function(d){return d.source.x;},
-                    "y1": function(d){return d.source.y;},
-                    "x2": function(d){return d.target.x;},
-                    "y2": function(d){return d.target.y;}
+          },
+          error:  function(xhr, str){
+                alert('Error: ' + xhr.responseCode);
+            }
         });
-
-        nodes.attr({"cx":function(d){return d.x;},
-                    "cy":function(d){return d.y;}
-        });
-
-        nodelabels.attr("x", function(d) { return d.x; }) 
-                  .attr("y", function(d) { return d.y; });
-
-        edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
-                                           //console.log(d)
-                                           return path});       
-
-        edgelabels.attr('transform',function(d,i){
-            if (d.target.x<d.source.x){
-                bbox = this.getBBox();
-                rx = bbox.x+bbox.width/2;
-                ry = bbox.y+bbox.height/2;
-                return 'rotate(180 '+rx+' '+ry+')';
-                }
-            else {
-                return 'rotate(0)';
-                }
-        });
-    });
-});
+    }
 
     </script>
-<!--     Table
-  <script>
-      $(document).ready(function() {
-          $('#table_id').DataTable( {
-              "scrollY":        "100px",
-              "scrollCollapse": true,
-              "paging":         false,
-              "info":           false,
-              "searching":      false
-              
-          } );
-      } );
-  </script> -->  
+
  </body>
 </html>
