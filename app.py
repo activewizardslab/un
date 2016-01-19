@@ -154,7 +154,6 @@ def one():
         mergeData_temp2 = mergeData_temp1['text']
 
         result = unique(mergeData_temp2.values)[:int(limit)]
-        #return render_template('main.html', form1=form1, form2=form2, data = result)
         return jsonify(data=result)
     else:
         return jsonify(error=form.errors)
@@ -174,14 +173,12 @@ def two():
         text1 = ' '.join(list(mergeData_temp1['SDG11Word'].values))
         text2 = ' '.join(list(mergeData_temp1['SDG{}Word'.format(category)].values))
 
-        return jsonify(data=[text1,text2])
+        cloud1 = Counter(mergeData_temp1['SDG11Word'].values).items()
+        cloud2 = Counter(mergeData_temp1['SDG{}Word'.format(category)].values).items()
+
+        return jsonify(data=[cloud1,cloud2])
     else:
         return jsonify(error=form.errors)
-
-
-@app.route('/graph')
-def graph():
-    return render_template('graph2.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

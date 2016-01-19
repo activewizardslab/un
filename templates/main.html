@@ -19,6 +19,19 @@
     <script src="{{ url_for('static', filename='js/wordcloud.js') }}"></script>
 
     <style>
+    .img-container {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex; /* add */
+    justify-content: center; /* add to align horizontal */
+    align-items: center; /* add to align vertical */
+}
+      .take-all-space-you-can{
+            width:50%;
+        }
       
 
       .node rect {
@@ -33,13 +46,15 @@
         stroke: #000;
         stroke-opacity: .2;
       }
+
+
     
     </style>
 
 
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid" style="font-size:16px">
       {# {% with messages = get_flashed_messages() %}
         {% if messages %}
           <ul class=flashes>
@@ -61,8 +76,8 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Links distribution between SDG11 and the others regarding to reports</a></li>
-              <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Links distribution between SDG11 and the others regarding to 4 types of relationships</a></li>
+              <li role="presentation" class="active take-all-space-you-can"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Links distribution between SDG11 and the others regarding to 4 types of relationships</a></li>
+              <li role="presentation" class="take-all-space-you-can"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Links distribution between SDG11 and the others regarding to reports</a></li>
             </ul>
             <br/>
             <!-- Tab panes -->
@@ -116,43 +131,74 @@
             </div>
           </div>
         </div> -->
-
         <div class="row">
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
-                <h3>Percentage of relationships for each link  between  Urban Development and the others</h3>
+                <h3 class="text-center" >Percentage of relationships for each link  between  Urban Development and the others</h3>
               </div>
             </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="text-center">Percent  of  links for each related Category and  Urban Development</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row img-container">
+          <div class="col-md-6">
             
             <div class="row">
               <div class="col-md-12">
-                <img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Accuracy2.jpg') }}" alt="bar chart">
+                <a data-toggle="modal" data-target="#modal1" href="#"><img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Accuracy2.jpg') }}" alt="bar chart"></a>
+
+                <div class="modal fade bs-example-modal-lg" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center">Percentage of relationships for each link  between  Urban Development and the others</h4>
+                      </div>
+                      <img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Accuracy2.jpg') }}" alt="bar chart">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-12">
-                <h3>Percent  of  links for each related Category and  Urban Development</h3>
-              </div>
-            </div>
             
             <div class="row">
               <div class="col-md-12">
-                <img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Pie.jpg') }}" alt="bar chart">
+                <a data-toggle="modal" data-target="#modal2" href="#"><img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Pie.jpg') }}" alt="bar chart"></a>
+
+                <div class="modal fade bs-example-modal-lg" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center">Percent  of  links for each related Category and  Urban Development</h4>
+                      </div>
+                      <img class="img-responsive img-rounded" src="{{ url_for('static', filename='media/Pie.jpg') }}" alt="bar chart">
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-12"><h3>Wordcloud with keywords for linkages between SDGs</h3></div>
+          <div class="col-md-12"><h3 class="text-center">Wordcloud with keywords for linkages between SDGs</h3></div>
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
-                <h4>Sustainable cities and communities</h4>
+                <h4 class="text-center">Sustainable cities and communities</h4>
               </div>
             </div>
             
@@ -166,20 +212,19 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
-                <h4>Filter (categories)</h4>
+                <h4 class="text-center">Filter (categories)</h4>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
-                  <form class="form-inline" action="javascript:void(null);" method="POST" name='chose2' id="form2" onsubmit="call2()">
+              <div class="  text-center">
+                  <form class="form-inline" action="javascript:void(null);" method="POST" name='chose2' id="form2" onchange="call2()">
                   <!-- <form class="form-inline" action="/" method="POST" name='chose2' id="form2"> -->
                      <div class="alert alert-danger" role="alert" id="error2">
                       </div>
                       {{form2.hidden_tag()}}
-                      <div class="row">
-                            <div class="col-md-4"><div class="form-group input-group" >{{ form2.cloud_category(class="form-control input-sm") }}</div></div>
-                            <div class="col-md-1"><div class="form-group input-group" ><button  name="submit2" class="btn btn-default btn-sm">Submit</button></div></div>
-                        </div>
+                      
+                            <div class="form-group input-group col-md-6 " >{{ form2.cloud_category(class="form-control input-sm") }}</div>
+                        
                   </form>
               </div>
             </div>
@@ -196,18 +241,12 @@
           <div class="col-md-12">
              <div class="row">
               <div class="col-md-12">
-                <h3>Header 6</h3>
+                <h3 class="text-center">Examples of sentences with link between  Urban Development and the others SDGs  per type of relationship</h3>
               </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h5>Little instruction</h5>
-                    <p>Ut in tincidunt metus. Morbi pulvinar facilisis justo, in blandit lectus cursus vitae. Etiam aliquet orci non ipsum bibendum fermentum. Fusce a turpis eget odio auctor tempus. Vestibulum luctus, libero vel.</p>
-                </div>
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8 col-md-offset-2">
                   <form class="form-inline" action="javascript:void(null);" method="POST" name='chose' id="form1" onsubmit="call1()">
                     <!-- <form class="form-inline" action="/" method="POST" name='chose1'> -->
 
@@ -215,11 +254,11 @@
                         </div>
 
                       {{form1.hidden_tag()}}
-                      <div class="row">
-                            <div class="col-md-4"><div class="form-group input-group" >{{ form1.relation(class="form-control input-sm") }}</div></div>
-                            <div class="col-md-4"><div class="form-group input-group" >{{ form1.category(class="form-control input-sm") }}</div></div>
-                            <div class="col-md-3"><div class="form-group input-group" >{{ form1.messages_number(class="form-control input-sm", placeholder="Limit", type="number", min=1) }}</div></div>
-                            <div class="col-md-1"><div class="form-group input-group" ><button type="submit" name="submit1" class="btn btn-default btn-sm">Submit</button></div></div>
+                      
+                            <div class="form-group input-group" >{{ form1.relation(class="form-control input") }}</div>
+                            <div class="form-group input-group" >{{ form1.category(class="form-control input") }}</div>
+                            <div class="form-group input-group" >{{ form1.messages_number(class="form-control input", placeholder="Limit", type="number", min=1) }}</div>
+                           <div class="form-group input-group" ><button type="submit" name="submit1" class="btn btn-default ">Submit</button></div>
                         </div>
                   </form>
                   <br>
@@ -227,7 +266,8 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-1">
+                  <br>
                   <ul id="response1">
                   </ul>
                 </div>
@@ -246,12 +286,17 @@
 
     <!-- First cloud -->
     <script>
-    var data = {{cloud | tojson|safe }};
+
+    var data_cloud = {{cloud | tojson|safe }};
+
     var fill = d3.scale.category20();
+
+    function render(data) {
+
     var layout = d3.layout.cloud()
-        .size([600, 600])
-        .words(data[0].map(function(d) {
-          return {text: d[0], size: d[1], test: "haha"};
+        .size([800, 300])
+        .words(data.map(function(d) {
+          return {text: d[0], size: 14+d[1], test: "haha"};
         }))
         .padding(5)
         .rotate(0)
@@ -266,7 +311,7 @@
               .classed("svg-container", true)
               .append("svg")
               .attr("preserveAspectRatio", "xMinYMin meet")
-              .attr("viewBox", "0 0 600 600")
+              .attr("viewBox", "0 0 850 350")
               .classed("svg-content-responsive", true)
         .append("g")
           .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
@@ -281,17 +326,20 @@
             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
           })
           .text(function(d) { return d.text; });
-    }
+    }}
+    render(data_cloud[0]);
+
     </script>
 
     <!-- Second cloud -->
     <script>
     var fill2 = d3.scale.category20();
 
+    function render2(data) {
     var layout2 = d3.layout.cloud()
-        .size([600, 600])
-        .words(data[1].map(function(d) {
-          return {text: d[0], size: 10+d[1]*Math.random(), test: "haha"};
+        .size([800, 300])
+        .words(data.map(function(d) {
+          return {text: d[0], size: 14+d[1], test: "haha"};
         }))
         .padding(5)
         .rotate(0)
@@ -306,7 +354,7 @@
               .classed("svg-container", true)
               .append("svg")
               .attr("preserveAspectRatio", "xMinYMin meet")
-              .attr("viewBox", "0 0 600 600")
+              .attr("viewBox", "0 0 850 350")
               .classed("svg-content-responsive", true)
         .append("g")
           .attr("transform", "translate(" + layout2.size()[0] / 2 + "," + layout2.size()[1] / 2 + ")")
@@ -321,12 +369,13 @@
             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
           })
           .text(function(d) { return d.text; });
-    }
+    }}
+    render2(data_cloud[1]);
     </script>
 
     <!-- First graph -->
     <script>
-      var margin = {top: 1, right: 1, bottom: 6, left: 1},
+      var margin = {top: 1, right: 150, bottom: 6, left: 400},
           width = 1300- margin.left - margin.right,
           height = 960 - margin.top - margin.bottom;
        
@@ -401,16 +450,16 @@
             .text(function(d) { return d.name + "\n" + format(d.value); });
        
         node1.append("text")
-            .attr("x", -6)
+            .attr("x", 15)
             .attr("y", function(d) { return d.dy / 2; })
             .attr("dy", ".35em")
-            .attr("text-anchor", "end")
+            .attr("text-anchor", "start")
             .attr("transform", null)
             .attr("font-size", 10)
             .text(function(d) { return d.name; })
           .filter(function(d) { return d.x < width / 2; })
-            .attr("x", 6 + sankey1.nodeWidth())
-            .attr("text-anchor", "start");
+            .attr("x", -15 + sankey1.nodeWidth())
+            .attr("text-anchor", "end");
        
         function dragmove(d) {
           d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
@@ -472,7 +521,7 @@
 
      var margin = {top: 1, right: 1, bottom: 6, left: 1},
           width = 1300 - margin.left - margin.right,
-          height = 760 - margin.top - margin.bottom;
+          height = 560 - margin.top - margin.bottom;
        
       var formatNumber = d3.format(",.0f"),
           format = function(d) { return formatNumber(d) ; },
@@ -482,7 +531,7 @@
               .classed("svg-container", true)
               .append("svg")
               .attr("preserveAspectRatio", "xMinYMin meet")
-              .attr("viewBox", "0 0 1300 760")
+              .attr("viewBox", "0 0 1300 560")
               .classed("svg-content-responsive", true)
         .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -656,17 +705,22 @@
     }
     
     function call2() {
+      
       var msg2   = $('#form2').serialize();
         $.ajax({
           type: 'POST',
           url: '/two',
           data: msg2,
           success: function(data) {
-            console.log(data);
             err2.hide();
             err2.empty();
 
             if (data['data']) {
+              console.log(data['data']);
+              d3.select("#cloud1").select("div").remove();
+              d3.select("#cloud2").select("div").remove();
+              render(data['data'][0]);
+              render2(data['data'][1]);
               
             } else {
               err2.show();
