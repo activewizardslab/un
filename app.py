@@ -15,8 +15,8 @@ class ChooseForm(Form):
             (0, 'Type of relation'),
             (1, 'Causal link (->)'),
              (2, 'Causal link (<-)'),
-             (3, 'Constraint, barriers, challanges'),
-             (4, 'Recommendatins')],
+             (3, 'Constraint, barriers, challenges'),
+             (4, 'Recommendations')],
         default=0,
         validators=[
             input_required(message="Please, choose type of relation"),
