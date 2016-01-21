@@ -1,0 +1,65 @@
+0,1,2
+Causal link (->),life below water,141
+Causal link (->),zero hunger,334
+Causal link (->),life on land,585
+Causal link (->),reduced inequalities,870
+Causal link (->),gender equality,799
+Causal link (->),clean water and sanitation,724
+Causal link (->),partnership for the goals,1111
+Causal link (->),climate action,1158
+Causal link (->),good health and well beeing,1215
+Causal link (->),affordable and clean energy,1625
+Causal link (->),no poverty,2273
+Causal link (->),piece justice and strong institutions,2410
+Causal link (->),responsible consumption and production,2851
+Causal link (->),quality education,3030
+Causal link (->),industry innowation and infrastructure,9400
+Causal link (->),decent work and economic growth,6123
+Causal link (<-),life below water,178
+Causal link (<-),zero hunger,324
+Causal link (<-),life on land,566
+Causal link (<-),reduced inequalities,759
+Causal link (<-),gender equality,763
+Causal link (<-),clean water and sanitation,779
+Causal link (<-),partnership for the goals,1094
+Causal link (<-),climate action,1281
+Causal link (<-),good health and well beeing,1406
+Causal link (<-),affordable and clean energy,1848
+Causal link (<-),no poverty,2420
+Causal link (<-),piece justice and strong institutions,2747
+Causal link (<-),responsible consumption and production,2925
+Causal link (<-),quality education,10526
+Causal link (<-),industry innowation and infrastructure,6408
+Causal link (<-),decent work and economic growth,13009
+"Constraint, barriers, challanges",life below water,59
+"Constraint, barriers, challanges",zero hunger,174
+"Constraint, barriers, challanges",life on land,241
+"Constraint, barriers, challanges",reduced inequalities,322
+"Constraint, barriers, challanges",gender equality,297
+"Constraint, barriers, challanges",clean water and sanitation,420
+"Constraint, barriers, challanges",partnership for the goals,436
+"Constraint, barriers, challanges",climate action,583
+"Constraint, barriers, challanges",good health and well beeing,510
+"Constraint, barriers, challanges",affordable and clean energy,770
+"Constraint, barriers, challanges",no poverty,955
+"Constraint, barriers, challanges",piece justice and strong institutions,1161
+"Constraint, barriers, challanges",responsible consumption and production,1125
+"Constraint, barriers, challanges",quality education,2203
+"Constraint, barriers, challanges",industry innowation and infrastructure,2703
+"Constraint, barriers, challanges",decent work and economic growth,3197
+Recommendatins,life below water,43
+Recommendatins,zero hunger,156
+Recommendatins,life on land,266
+Recommendatins,reduced inequalities,175
+Recommendatins,gender equality,268
+Recommendatins,clean water and sanitation,233
+Recommendatins,partnership for the goals,656
+Recommendatins,climate action,557
+Recommendatins,good health and well beeing,499
+Recommendatins,affordable and clean energy,793
+Recommendatins,no poverty,808
+Recommendatins,piece justice and strong institutions,1513
+Recommendatins,responsible consumption and production,1275
+Recommendatins,quality education,2255
+Recommendatins,industry innowation and infrastructure,3101
+Recommendatins,decent work and economic growth,3304
