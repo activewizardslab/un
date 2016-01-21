@@ -137,7 +137,6 @@ def one():
     form = ChooseForm(request.form)
     if form.validate():
         category = form.data['category']
-        print "One: {0}".format(category)
         relationship = form.data['relation']
         limit = form.data['messages_number']
 
@@ -163,7 +162,6 @@ def two():
     form = CloudForm(request.form)
     if form.validate():
         category = form.data['cloud_category']
-        print "Two: {0}".format(category)
 
         mergeData_temp1 = mergeData_general[mergeData_general['SDG{}Word'.format(category)] != '-0']
         mergeData_temp2 = mergeData_temp1['text']

@@ -1,0 +1,282 @@
+[
+   {
+      "color":"",
+      "values":[
+         {
+            "value":6123,
+            "label":"Decent work and economic growth"
+         },
+         {
+            "value":9400,
+            "label":"Industry innowation and infrastructure"
+         },
+         {
+            "value":3030,
+            "label":"Quality education"
+         },
+         {
+            "value":2851,
+            "label":"Responsible consumption and production"
+         },
+         {
+            "value":2410,
+            "label":"Piece justice and strong institutions"
+         },
+         {
+            "value":2273,
+            "label":"No poverty"
+         },
+         {
+            "value":1625,
+            "label":"Affordable and clean energy"
+         },
+         {
+            "value":1215,
+            "label":"Good health and well beeing"
+         },
+         {
+            "value":1158,
+            "label":"Climate action"
+         },
+         {
+            "value":1111,
+            "label":"Partnership for the goals"
+         },
+         {
+            "value":724,
+            "label":"Clean water and sanitation"
+         },
+         {
+            "value":799,
+            "label":"Gender equality"
+         },
+         {
+            "value":870,
+            "label":"Reduced inequalities"
+         },
+         {
+            "value":585,
+            "label":"Life on land"
+         },
+         {
+            "value":334,
+            "label":"Zero hunger"
+         },
+         {
+            "value":141,
+            "label":"Life below water"
+         }
+      ],
+      "key":"Causal link (->)"
+   },
+   {
+      "color":"",
+      "values":[
+         {
+            "value":13009,
+            "label":"Decent work and economic growth"
+         },
+         {
+            "value":6408,
+            "label":"Industry innowation and infrastructure"
+         },
+         {
+            "value":10526,
+            "label":"Quality education"
+         },
+         {
+            "value":2925,
+            "label":"Responsible consumption and production"
+         },
+         {
+            "value":2747,
+            "label":"Piece justice and strong institutions"
+         },
+         {
+            "value":2420,
+            "label":"No poverty"
+         },
+         {
+            "value":1848,
+            "label":"Affordable and clean energy"
+         },
+         {
+            "value":1406,
+            "label":"Good health and well beeing"
+         },
+         {
+            "value":1281,
+            "label":"Climate action"
+         },
+         {
+            "value":1094,
+            "label":"Partnership for the goals"
+         },
+         {
+            "value":779,
+            "label":"Clean water and sanitation"
+         },
+         {
+            "value":763,
+            "label":"Gender equality"
+         },
+         {
+            "value":759,
+            "label":"Reduced inequalities"
+         },
+         {
+            "value":566,
+            "label":"Life on land"
+         },
+         {
+            "value":324,
+            "label":"Zero hunger"
+         },
+         {
+            "value":178,
+            "label":"Life below water"
+         }
+      ],
+      "key":"Causal link (<-)"
+   },
+   {
+      "color":"",
+      "values":[
+         {
+            "value":3197,
+            "label":"Decent work and economic growth"
+         },
+         {
+            "value":2703,
+            "label":"Industry innowation and infrastructure"
+         },
+         {
+            "value":2203,
+            "label":"Quality education"
+         },
+         {
+            "value":1125,
+            "label":"Responsible consumption and production"
+         },
+         {
+            "value":1161,
+            "label":"Piece justice and strong institutions"
+         },
+         {
+            "value":955,
+            "label":"No poverty"
+         },
+         {
+            "value":770,
+            "label":"Affordable and clean energy"
+         },
+         {
+            "value":510,
+            "label":"Good health and well beeing"
+         },
+         {
+            "value":583,
+            "label":"Climate action"
+         },
+         {
+            "value":436,
+            "label":"Partnership for the goals"
+         },
+         {
+            "value":420,
+            "label":"Clean water and sanitation"
+         },
+         {
+            "value":297,
+            "label":"Gender equality"
+         },
+         {
+            "value":322,
+            "label":"Reduced inequalities"
+         },
+         {
+            "value":241,
+            "label":"Life on land"
+         },
+         {
+            "value":174,
+            "label":"Zero hunger"
+         },
+         {
+            "value":59,
+            "label":"Life below water"
+         }
+      ],
+      "key":"Constraint, barriers, challenges"
+   },
+   {
+      "color":"",
+      "values":[
+         {
+            "value":3304,
+            "label":"Decent work and economic growth"
+         },
+         {
+            "value":3101,
+            "label":"Industry innowation and infrastructure"
+         },
+         {
+            "value":2255,
+            "label":"Quality education"
+         },
+         {
+            "value":1275,
+            "label":"Responsible consumption and production"
+         },
+         {
+            "value":1513,
+            "label":"Piece justice and strong institutions"
+         },
+         {
+            "value":808,
+            "label":"No poverty"
+         },
+         {
+            "value":793,
+            "label":"Affordable and clean energy"
+         },
+         {
+            "value":499,
+            "label":"Good health and well beeing"
+         },
+         {
+            "value":557,
+            "label":"Climate action"
+         },
+         {
+            "value":656,
+            "label":"Partnership for the goals"
+         },
+         {
+            "value":233,
+            "label":"Clean water and sanitation"
+         },
+         {
+            "value":268,
+            "label":"Gender equality"
+         },
+         {
+            "value":175,
+            "label":"Reduced inequalities"
+         },
+         {
+            "value":266,
+            "label":"Life on land"
+         },
+         {
+            "value":156,
+            "label":"Zero hunger"
+         },
+         {
+            "value":43,
+            "label":"Life below water"
+         }
+      ],
+      "key":"Recommendations"
+   }
+]
