@@ -11,6 +11,8 @@
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 
     <!-- D3 and first graph -->
     <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -72,6 +74,11 @@
       }
       .nv-axislabel{
         font-weight: bold;
+      }
+
+      #cloud1, #cloud2 {
+        margin-top: 120px;
+        margin-bottom: 70px;
       }
     
     </style>
@@ -244,10 +251,17 @@
                   </ul>
                 </div>
             </div>
-            <div class="row" style="height:100px;"></div>
+            <div class="row" ></div>
+
 
           </div>
         </div>
+        <footer class="footer">
+      <div class="container">
+        <p class="text-center" style="margin-top:100px;">2016. Crafted with <i class="fa fa-heart"></i>
+ by <a href="http://activewizards.com" target="_blank">ActiveWizards</a></p>
+      </div>
+    </footer>
     </div>
 
 
