@@ -1,3 +1,3 @@
-# UN #LinksSDGs - Natural language processing and data visualization challenge
-
-demo - http://un.app.activewizards.com/
+Demo
+=========
+https://awo19.activewizards-demos.com/
